@@ -1,3 +1,5 @@
+<%= flash[:alert] %>
+
 <%= form_for @recipe do |recipe| %>
   <%= recipe.label :title, 'Título' %>
   <p><%= recipe.text_field :title %></p>
