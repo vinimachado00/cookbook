@@ -3,7 +3,7 @@
 
 <p><%= link_to 'Enviar uma receita', new_recipe_path %></p>
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %>
-
+<p><%= link_to 'Cadastrar cozinha', new_cuisine_path %></p>
 
 <% @recipes.each do |recipe| %>
   <h1><%= link_to recipe.title, recipe %></h1>
