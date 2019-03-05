@@ -23,7 +23,10 @@
   <%= recipe.label :cook_method, 'Como Preparar' %>
   <p><%= recipe.text_field :cook_method %></p>
   
+  <%= recipe.label :photo, 'Foto' %>
+  <p><%= recipe.file_field :photo %></p>
+
   <%= recipe.submit 'Enviar' %>
 <% end %>
 
-<%= link_to 'Voltar', @recipe %>
+<p><%= link_to 'Voltar', @recipe %></p>
