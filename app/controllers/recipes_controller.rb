@@ -49,6 +49,13 @@ class RecipesController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    @recipes = Recipe.where('title like ?', "%#{params[:search]}%")
+    if @recipes.empty?
+      flash[:alert] = 'Desculpe, não foi encontrado nenhum resultado para o termo pesquisado'
+    end
+  end
+
   private
 
   def params_recipe

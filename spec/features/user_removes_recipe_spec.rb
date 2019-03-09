@@ -16,6 +16,7 @@ feature 'User removes recipe' do
                   cook_time: 90,
                   ingredients: 'Feijão e carnes',
                   cook_method: 'Misture o feijão com as carnes')
+
     # ação do usuário
     visit root_path
     click_on 'Bolo de cenoura'
