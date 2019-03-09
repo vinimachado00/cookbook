@@ -9,12 +9,12 @@
 <p><%= @recipe.cuisine.name %></p>
 <p><%= @recipe.difficulty %></p>
 <p><%= "#{@recipe.cook_time} minutos" %></p>
-
 <h3>Ingredientes</h3>
 <p><%= @recipe.ingredients %></p>
-
 <h3>Como Preparar</h3>
 <p><%= @recipe.cook_method %></p>
 
+<%= link_to 'Apagar receita', @recipe, method: :delete, 
+    data: { confirm: "Tem certeza que deseja apagar a receita: #{@recipe.title}?" } %>
 <%= link_to 'Editar', edit_recipe_path %>
 <%= link_to 'Voltar', root_path %>
