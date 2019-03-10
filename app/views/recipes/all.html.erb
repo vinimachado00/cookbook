@@ -1,0 +1,15 @@
+<h1>Todas as receitas</h1>
+
+<div class="todas_receitas">
+  <% @recipes.each do |recipe| %>
+    <h1><%= link_to recipe.title, recipe %></h1>
+    <ul>
+      <li><%= recipe.recipe_type.name %></li>
+      <li><%= recipe.cuisine.name %></li>
+      <li><%= recipe.difficulty %></li>
+      <li><%= "#{recipe.cook_time} minutos" %></li>
+    </ul>
+  <% end %>
+</div>
+
+<p><%= link_to 'Voltar', root_path %></p>

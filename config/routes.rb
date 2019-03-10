@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root to: 'recipes#index'
   resources :recipes do
-    get 'search', on: :collection
+    collection do
+      get 'search'
+      get 'all'
+    end
+
     member do
       get 'favorite'
       delete 'favorite', to: 'recipes#unfavorite'

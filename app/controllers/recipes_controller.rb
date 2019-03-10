@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   def index
     @recipes = Recipe.all
+    @last_recipes = Recipe.last(6)
   end
 
   def show
@@ -67,6 +68,10 @@ class RecipesController < ApplicationController
     find_recipe_by_id
     @recipe.update(favorite: false)
     redirect_to root_path
+  end
+
+  def all
+    @recipes = Recipe.all
   end
 
   private

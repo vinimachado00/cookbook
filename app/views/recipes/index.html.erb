@@ -5,7 +5,7 @@
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %>
 <p><%= link_to 'Cadastrar cozinha', new_cuisine_path %></p>
 
-<h4>Receitas em destaque</h4>
+<h2>Receitas em destaque</h2>
 
 <div class="favoritas">
   <% @recipes.each do |recipe| %>
@@ -24,12 +24,21 @@
   <% end %>
 </div>
 
-<% @recipes.each do |recipe| %>
-  <h1><%= link_to recipe.title, recipe %></h1>
-  <ul>
-    <li><%= recipe.recipe_type.name %></li>
-    <li><%= recipe.cuisine.name %></li>
-    <li><%= recipe.difficulty %></li>
-    <li><%= "#{recipe.cook_time} minutos" %></li>
-  </ul>
-<% end %>
+<h2>Últimas receitas</h2>
+
+<div class="ultimas_receitas">
+  <% @last_recipes.each do |recipe| %>
+    <% if recipe.favorite %>
+    <% else %>
+      <h1><%= link_to recipe.title, recipe %></h1>
+      <ul>
+        <li><%= recipe.recipe_type.name %></li>
+        <li><%= recipe.cuisine.name %></li>
+        <li><%= recipe.difficulty %></li>
+        <li><%= "#{recipe.cook_time} minutos" %></li>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+
+<h4><%= link_to 'Ver todas as receitas', all_recipes_path %></h4>
