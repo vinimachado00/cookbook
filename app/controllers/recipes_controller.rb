@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
+    find_recipe_by_id
   end
 
   def new
@@ -15,6 +15,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(params_recipe)
+    @recipe.favorite = false
     if @recipe.save
       redirect_to @recipe
     else
@@ -26,13 +27,13 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
+    find_recipe_by_id
     @recipe_type = RecipeType.all
     @cuisine = Cuisine.all
   end
 
   def update
-    @recipe = Recipe.find(params[:id])    
+    find_recipe_by_id    
     if @recipe.update(params_recipe)
       redirect_to @recipe
     else
@@ -44,7 +45,7 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
+    find_recipe_by_id
     @recipe.destroy
     redirect_to root_path
   end
@@ -56,11 +57,27 @@ class RecipesController < ApplicationController
     end
   end
 
+  def favorite
+    find_recipe_by_id
+    @recipe.update(favorite: true)
+    redirect_to root_path
+  end
+
+  def unfavorite
+    find_recipe_by_id
+    @recipe.update(favorite: false)
+    redirect_to root_path
+  end
+
   private
 
   def params_recipe
     params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id,
                                    :difficulty, :cook_time, :ingredients,
-                                   :cook_method, :photo)
+                                   :cook_method, :photo, :favorite)
+  end
+
+  def find_recipe_by_id
+    @recipe = Recipe.find(params[:id])
   end
 end
