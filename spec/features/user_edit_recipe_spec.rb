@@ -14,6 +14,7 @@ feature 'User update recipe' do
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
 
     # simula a ação do usuário
+    login_as user, scope: :user
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'
@@ -49,6 +50,7 @@ feature 'User update recipe' do
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
 
     # simula a ação do usuário
+    login_as user, scope: :user
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'
@@ -63,4 +65,22 @@ feature 'User update recipe' do
 
     expect(page).to have_content('Não foi possível salvar a receita')
   end
+=begin
+  scenario 'directly from path without permission' do
+    # cria os dados
+    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
+    recipe_type = RecipeType.create(name: 'Sobremesa')
+    cuisine = Cuisine.create(name: 'Brasileira')
+    receita = Recipe.create(title: 'Bolodecenoura', difficulty: 'Médio',
+                  recipe_type: recipe_type, cuisine: cuisine,
+                  cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
+                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
+    
+    # ação do usuário
+    visit edit_recipe_path(receita)
+
+    # expectativa
+    expect(current_path).to eq root_path
+  end
+=end
 end

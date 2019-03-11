@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update,
+                                            :destroy, :favorite, :unfavorite]
+  
   def index
     @recipes = Recipe.all
     @last_recipes = Recipe.last(6)
@@ -32,6 +33,7 @@ class RecipesController < ApplicationController
 
   def edit
     find_recipe_by_id
+    redirect_to root_path if user_signed_in? == false
     @recipe_type = RecipeType.all
     @cuisine = Cuisine.all
   end

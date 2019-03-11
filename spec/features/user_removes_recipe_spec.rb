@@ -19,6 +19,7 @@ feature 'User removes recipe' do
                   cook_method: 'Misture o feijão com as carnes', user: user)
 
     # ação do usuário
+    login_as user, scope: :user
     visit root_path
     click_on 'Bolo de cenoura'
     click_on 'Apagar receita'

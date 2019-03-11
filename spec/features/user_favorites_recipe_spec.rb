@@ -13,6 +13,7 @@ feature 'User favorites recipe' do
                                     favorite: false, user: user)
 
     # ação do usuário
+    login_as user, scope: :user
     visit root_path
     click_on 'Bolo de cenoura'
     click_on 'Favoritar'
@@ -41,6 +42,7 @@ feature 'User favorites recipe' do
                   favorite: true, user: user)
 
     # ação do usuário
+    login_as user, scope: :user
     visit recipe_path(recipe)
     click_on 'Desfavoritar'
     click_on 'Bolo de cenoura'
