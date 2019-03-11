@@ -2,12 +2,14 @@ require 'rails_helper'
 
 feature 'User register recipe' do
   scenario 'successfully' do
-    #cria os dados necessários, nesse caso não vamos criar dados no banco
+    # cria os dados necessários, nesse caso não vamos criar dados no banco
+    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
     RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
     Cuisine.create(name: 'Arabe')
 
     # simula a ação do usuário
+    login_as user, scope: :user
     visit root_path
     click_on 'Enviar uma receita'
 
@@ -32,10 +34,15 @@ feature 'User register recipe' do
     expect(page).to have_css('p', text: 'Trigo para quibe, cebola, tomate picado, azeite, salsinha')
     expect(page).to have_css('h3', text: 'Como Preparar')
     expect(page).to have_css('p', text:  'Misturar tudo e servir. Adicione limão a gosto.')
+    expect(page).to have_content('Receita enviada por vinimachado00@gmail.com')
   end
 
   scenario 'and must fill in all fields' do
+    # cria os dados
+    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
+
     # simula a ação do usuário
+    login_as user, scope: :user
     visit root_path
     click_on 'Enviar uma receita'
 
@@ -48,5 +55,13 @@ feature 'User register recipe' do
 
 
     expect(page).to have_content('Não foi possível salvar a receita')
+  end
+
+  scenario 'and must be logged in' do
+    # ação do usuário
+    visit new_recipe_path
+
+    # expectativas
+    expect(current_path).to eq new_user_session_path
   end
 end

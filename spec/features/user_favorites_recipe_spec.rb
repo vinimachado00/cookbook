@@ -3,13 +3,14 @@ require 'rails_helper'
 feature 'User favorites recipe' do
   scenario 'successfully' do
     # cria os dados
+    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
     favorite_recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
                                     recipe_type: recipe_type, cuisine: cuisine,
                                     cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                                     cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                                    favorite: false)
+                                    favorite: false, user: user)
 
     # ação do usuário
     visit root_path
@@ -30,13 +31,14 @@ feature 'User favorites recipe' do
 
   scenario 'unfavorite' do
     # cria os dados
+    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
     recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                  favorite: true)
+                  favorite: true, user: user)
 
     # ação do usuário
     visit recipe_path(recipe)

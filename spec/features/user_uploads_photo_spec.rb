@@ -3,10 +3,12 @@ require 'rails_helper'
 feature 'User uploads photo' do
   scenario 'successfully' do
     # cria os dados necessários
+    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
     Cuisine.create!(name: 'Arabe')
     RecipeType.create!(name: 'Entrada')
     
     # ação do usuário
+    login_as user, scope: :user
     visit new_recipe_path
     
     fill_in 'Título', with: 'Tabule'

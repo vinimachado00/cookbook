@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+
   def index
     @recipes = Recipe.all
     @last_recipes = Recipe.last(6)
@@ -17,6 +19,7 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(params_recipe)
     @recipe.favorite = false
+    @recipe.user = current_user
     if @recipe.save
       redirect_to @recipe
     else
@@ -72,6 +75,10 @@ class RecipesController < ApplicationController
 
   def all
     @recipes = Recipe.all
+  end
+
+  def my_recipes
+    @recipes = current_user.recipes
   end
 
   private

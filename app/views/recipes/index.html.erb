@@ -42,3 +42,7 @@
 </div>
 
 <h4><%= link_to 'Ver todas as receitas', all_recipes_path %></h4>
+
+<% if user_signed_in? %>
+  <%= link_to 'Ver minhas receitas', my_recipes_path %>
+<% end %>
