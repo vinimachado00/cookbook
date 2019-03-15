@@ -1,0 +1,9 @@
+<%= flash[:alert] %>
+
+<%= form_for @list do |list| %>
+  <%= list.label :name, 'Nome' %>
+  <%= list.text_field :name %>
+  <%= list.submit 'Enviar' %>
+<% end %>
+
+<p><%= link_to 'Voltar', root_path %></p>

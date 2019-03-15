@@ -4,6 +4,7 @@
 <p><%= link_to 'Enviar uma receita', new_recipe_path %></p>
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %>
 <p><%= link_to 'Cadastrar cozinha', new_cuisine_path %></p>
+<%= link_to 'Adicionar lista de receitas', new_list_path %>
 
 <h2>Receitas em destaque</h2>
 
@@ -45,4 +46,5 @@
 
 <% if user_signed_in? %>
   <%= link_to 'Ver minhas receitas', my_recipes_path %>
+  <p><%= link_to 'Ver todas as listas', my_lists_path %></p>
 <% end %>

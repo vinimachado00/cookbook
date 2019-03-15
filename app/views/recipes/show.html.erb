@@ -4,6 +4,7 @@
 
 <h1><%= @recipe.title %><%= image_tag '/images/star.png' %></h1>
 
+
 <h3>Detalhes</h3>
 <p><%= @recipe.recipe_type.name %></p>
 <p><%= @recipe.cuisine.name %></p>
@@ -14,6 +15,7 @@
 <h3>Como Preparar</h3>
 <p><%= @recipe.cook_method %></p>
 <p><%= "Receita enviada por #{ @recipe.user.email }" %></p>
+
 
 <% if @recipe.favorite == false %>
   <%= link_to 'Favoritar', favorite_recipe_path %>
