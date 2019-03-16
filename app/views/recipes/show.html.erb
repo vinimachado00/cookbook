@@ -4,10 +4,16 @@
 
 <h1><%= @recipe.title %><%= image_tag '/images/star.png' %></h1>
 
+<%= flash[:alert] %>
 
 <h3>Detalhes</h3>
 <p>
   <%= @recipe.recipe_type.name %>
+  <%= form_tag add_list_recipe_path, method: :post do %>
+    <%= label_tag :list_id, 'Lista' %>
+    <%= select_tag(:list_id, options_from_collection_for_select(@lists, :id, :name)) %>
+    <%= submit_tag 'Adicionar à esta lista' %>
+  <% end %>
 </p>
 <p><%= @recipe.cuisine.name %></p>
 <p><%= @recipe.difficulty %></p>

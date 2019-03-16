@@ -23,4 +23,8 @@ class ListsController < ApplicationController
   def show
     @list = List.find(params[:id])
   end
+
+  def list_recipes
+    @list_recipes = ListRecipe.all
+  end
 end

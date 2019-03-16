@@ -1,5 +1,9 @@
-<% @list_recipes.each do |lr| %>
+<h2>Receitas da lista selecionada</h2>
+
+<% @list_recipes.each do |list_recipe| %>
   <ul>
-    <li><%= link_to lr.recipe.title, recipe_path(lr.recipe_id) %></li>
+    <li><%= link_to list_recipe.recipe.title, recipe_path(list_recipe.recipe_id) %></li>
   </ul>
 <% end %>
+
+<p><%= link_to 'Voltar', my_lists_path %>

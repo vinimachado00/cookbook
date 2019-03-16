@@ -84,6 +84,16 @@ class RecipesController < ApplicationController
     @recipes = current_user.recipes
   end
 
+  def add_list
+    @list = List.find(params[:list_id])
+    @recipe = Recipe.find(params[:id])
+    list_recipe = ListRecipe.new(list: @list, recipe: @recipe)
+    if list_recipe.save
+      flash[:alert] = "Adicionado à lista '#{list_recipe.list.name}' com sucesso!"
+      redirect_to @recipe
+    end
+  end
+
   private
 
   def params_recipe

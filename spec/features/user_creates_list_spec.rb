@@ -35,6 +35,6 @@ feature 'User creates list' do
     click_on 'Ver minhas listas'
 
     expect(page).to have_css('p', text: 'Almoço em família')
-    expect(page).to have_css('p', text: 'Café da tarde')
+    expect(page).to have_link('Café da tarde')
   end
 end
