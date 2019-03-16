@@ -2,25 +2,20 @@ require 'rails_helper'
 
 feature 'User favorites recipe' do
   scenario 'successfully' do
-    # cria os dados
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    recipe_type = RecipeType.create(name: 'Sobremesa')
-    cuisine = Cuisine.create(name: 'Brasileira')
-    favorite_recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
-                                    recipe_type: recipe_type, cuisine: cuisine,
-                                    cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
-                                    cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                                    favorite: false, user: user)
-
-    # ação do usuário
+    user = create(:user)    
+    recipe_type = create(:recipe_type, name: 'Sobremesa')
+    recipe_type2 = create(:recipe_type, name: 'Entrada')
+    cuisine = create(:cuisine, name: 'Brasileira')
+    cuisine2 = create(:cuisine, name: 'Arabe')
+    favorite_recipe = create(:recipe, title: 'Bolo de cenoura', recipe_type: recipe_type,
+                    cuisine: cuisine, user: user, favorite: false)
+    
     login_as user, scope: :user
     visit root_path
     click_on 'Bolo de cenoura'
     click_on 'Favoritar'
-
-    # favorite_recipe = Recipe.find(favorite_recipe.id)
     favorite_recipe.reload
-    # expectativas
+    
     expect(page).to have_content('Receitas em destaque')
     within 'div.favoritas' do
       expect(page).to have_content('Bolo de cenoura')
@@ -31,23 +26,19 @@ feature 'User favorites recipe' do
   end
 
   scenario 'unfavorite' do
-    # cria os dados
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    recipe_type = RecipeType.create(name: 'Sobremesa')
-    cuisine = Cuisine.create(name: 'Brasileira')
-    recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: cuisine,
-                  cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
-                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                  favorite: true, user: user)
-
-    # ação do usuário
+    user = create(:user)    
+    recipe_type = create(:recipe_type, name: 'Sobremesa')
+    recipe_type2 = create(:recipe_type, name: 'Entrada')
+    cuisine = create(:cuisine, name: 'Brasileira')
+    cuisine2 = create(:cuisine, name: 'Arabe')
+    recipe = create(:recipe, title: 'Bolo de cenoura', recipe_type: recipe_type,
+                    cuisine: cuisine, user: user, favorite: true)
+    
     login_as user, scope: :user
     visit recipe_path(recipe)
     click_on 'Desfavoritar'
     click_on 'Bolo de cenoura'
 
-    # expectativas
     expect(page).not_to have_content('Desfavoritar')
     expect(page).to have_content('Favoritar')
   end

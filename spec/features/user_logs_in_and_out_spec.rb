@@ -2,13 +2,11 @@ require 'rails_helper'
 
 feature 'User logs in' do
   scenario 'successfully' do
-    # cria os dados
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
+    user = create(:user)
   
-    # ação do usuário
     visit root_path
     click_on 'Entrar'
-    fill_in 'Email', with: 'vinimachado00@gmail.com'
+    fill_in 'Email', with: user.email
     fill_in 'Password', with: '123456'
     click_on 'Log in'
 
@@ -19,12 +17,12 @@ feature 'User logs in' do
 
   scenario 'and logs out' do
     # cria os dados
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
+    user = create(:user)
   
     # ação do usuário
     visit root_path
     click_on 'Entrar'
-    fill_in 'Email', with: 'vinimachado00@gmail.com'
+    fill_in 'Email', with: user.email
     fill_in 'Password', with: '123456'
     click_on 'Log in'
     click_on 'Sair'

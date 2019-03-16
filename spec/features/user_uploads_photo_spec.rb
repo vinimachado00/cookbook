@@ -2,15 +2,12 @@ require 'rails_helper'
 
 feature 'User uploads photo' do
   scenario 'successfully' do
-    # cria os dados necessários
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    Cuisine.create!(name: 'Arabe')
-    RecipeType.create!(name: 'Entrada')
+    user = create(:user)
+    create(:cuisine, name: 'Arabe')
+    create(:recipe_type, name: 'Entrada')
     
-    # ação do usuário
     login_as user, scope: :user
     visit new_recipe_path
-    
     fill_in 'Título', with: 'Tabule'
     select 'Entrada', from: 'Tipo da Receita'
     select 'Arabe', from: 'Cozinha'
@@ -21,7 +18,6 @@ feature 'User uploads photo' do
     attach_file 'Foto', Rails.root.join('spec', 'support', 'Tabule.jpg')
     click_on 'Enviar'
 
-    # expectativas
     expect(page).to have_css('img[src*="Tabule.jpg"]')
     expect(page).to have_css('h1', text: 'Tabule')
     expect(page).to have_css('h3', text: 'Detalhes')

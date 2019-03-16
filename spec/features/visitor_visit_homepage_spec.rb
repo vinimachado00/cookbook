@@ -9,20 +9,13 @@ feature 'Visitor visit homepage' do
   end
 
   scenario 'and view recipe' do
-    # cria os dados necessários
-    user = User.create(email: 'vinimachado00@gmail.com', password: '123456')
-    recipe_type = RecipeType.create(name: 'Sobremesa')
-    cuisine = Cuisine.create(name: 'Brasileira')
-    recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
-                           recipe_type: recipe_type, cuisine: cuisine,
-                           cook_time: 50,
-                           ingredients: 'Farinha, açucar, cenoura',
-                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
+    user = create(:user)
+    recipe_type = create(:recipe_type)
+    cuisine = create(:cuisine)
+    recipe = create(:recipe, user: user)
 
-    # simula a ação do usuário
     visit root_path
 
-    # expectativas do usuário após a ação
     expect(page).to have_css('h1', text: recipe.title)
     expect(page).to have_css('li', text: recipe.recipe_type.name)
     expect(page).to have_css('li', text: recipe.cuisine.name)
@@ -31,28 +24,19 @@ feature 'Visitor visit homepage' do
   end
 
   scenario 'and view recipes list' do
-    # cria os dados necessários
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    recipe_type = RecipeType.create(name: 'Sobremesa')
-    cuisine = Cuisine.create(name: 'Brasileira')
-    another_recipe_type = RecipeType.create(name: 'Prato principal')
-    recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
-                           recipe_type: recipe_type, cuisine: cuisine,
-                           cook_time: 50,
-                           ingredients: 'Farinha, açucar, cenoura',
-                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes', user: user)
+    user = create(:user)
+    recipe_type = create(:recipe_type)
+    cuisine = create(:cuisine)
+    recipe = create(:recipe, user: user)
+    another_recipe_type = create(:recipe_type, name: 'Prato principal')
+    another_recipe = create(:recipe, title: 'Feijoada', recipe_type: another_recipe_type,
+                            difficulty: 'Difícil', cook_time: 90, 
+                            ingredients: 'Feijão e carnes',
+                            cook_method: 'Misture o feijão com as carnes',
+                            user: user)
 
-    another_recipe = Recipe.create(title: 'Feijoada',
-                                   recipe_type: another_recipe_type,
-                                   cuisine: cuisine, difficulty: 'Difícil',
-                                   cook_time: 90,
-                                   ingredients: 'Feijão e carnes',
-                                   cook_method: 'Misture o feijão com as carnes', user: user)
-
-    # simula a ação do usuário
     visit root_path
 
-    # expectativas do usuário após a ação
     expect(page).to have_css('h1', text: recipe.title)
     expect(page).to have_css('li', text: recipe.recipe_type.name)
     expect(page).to have_css('li', text: recipe.cuisine.name)
@@ -67,31 +51,20 @@ feature 'Visitor visit homepage' do
   end
 
   scenario 'and clicks to see all recipes' do
-    # cria os dados necessários
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    recipe_type = RecipeType.create(name: 'Sobremesa')
-    cuisine = Cuisine.create(name: 'Brasileira')
-    another_recipe_type = RecipeType.create(name: 'Prato principal')
-    recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
-                           recipe_type: recipe_type, cuisine: cuisine,
-                           cook_time: 50,
-                           ingredients: 'Farinha, açucar, cenoura',
-                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                           favorite: true, user: user)
-
-    another_recipe = Recipe.create(title: 'Feijoada',
-                                   recipe_type: another_recipe_type,
-                                   cuisine: cuisine, difficulty: 'Difícil',
-                                   cook_time: 90,
-                                   ingredients: 'Feijão e carnes',
-                                   cook_method: 'Misture o feijão com as carnes',
-                                   favorite: false, user: user)
-
-    # simula a ação do usuário
+    user = create(:user)
+    recipe_type = create(:recipe_type)
+    cuisine = create(:cuisine)
+    recipe = create(:recipe, user: user, favorite: true)
+    another_recipe_type = create(:recipe_type, name: 'Prato principal')
+    another_recipe = create(:recipe, title: 'Feijoada', recipe_type: another_recipe_type,
+                            difficulty: 'Difícil', cook_time: 90, 
+                            ingredients: 'Feijão e carnes',
+                            cook_method: 'Misture o feijão com as carnes',
+                            user: user, favorite: false)
+    
     visit root_path
     click_on 'Ver todas as receitas'
 
-    # expectativas do usuário após a ação
     expect(page).to have_css('h1', text: recipe.title)
     expect(page).to have_css('li', text: recipe.recipe_type.name)
     expect(page).to have_css('li', text: recipe.cuisine.name)
@@ -106,33 +79,22 @@ feature 'Visitor visit homepage' do
   end
 
   scenario 'and views his recipes' do
-    # cria os dados necessários
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    user1 = User.create!(email: 'vmachado00@gmail.com', password: '123456')
-    recipe_type = RecipeType.create(name: 'Sobremesa')
-    cuisine = Cuisine.create(name: 'Brasileira')
-    another_recipe_type = RecipeType.create(name: 'Prato principal')
-    recipe = Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
-                           recipe_type: recipe_type, cuisine: cuisine,
-                           cook_time: 50,
-                           ingredients: 'Farinha, açucar, cenoura',
-                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                           favorite: true, user: user)
+    user = create(:user)
+    user1 = create(:random_user)
+    recipe_type = create(:recipe_type)
+    cuisine = create(:cuisine)
+    another_recipe_type = create(:recipe_type, name: 'Prato principal')
+    recipe = create(:recipe, favorite: true, user: user)
+    another_recipe = create(:recipe, title: 'Feijoada', recipe_type: another_recipe_type,
+                            difficulty: 'Difícil', cook_time: 90, 
+                            ingredients: 'Feijão e carnes',
+                            cook_method: 'Misture o feijão com as carnes',
+                            user: user1, favorite: false)
 
-    another_recipe = Recipe.create(title: 'Feijoada',
-                                   recipe_type: another_recipe_type,
-                                   cuisine: cuisine, difficulty: 'Difícil',
-                                   cook_time: 90,
-                                   ingredients: 'Feijão e carnes',
-                                   cook_method: 'Misture o feijão com as carnes',
-                                   favorite: false, user: user1)
-
-    # simula a ação do usuário
     login_as user, scope: :user
     visit root_path
     click_on 'Ver minhas receitas'
 
-    # expectativas do usuário após a ação
     expect(page).to have_css('h1', text: recipe.title)
     expect(page).to have_css('li', text: recipe.recipe_type.name)
     expect(page).to have_css('li', text: recipe.cuisine.name)

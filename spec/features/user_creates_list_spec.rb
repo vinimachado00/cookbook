@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User creates list' do
   scenario 'successfully' do
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
+    user = create(:user)
 
     login_as user, scope: :user
     visit root_path
@@ -14,7 +14,7 @@ feature 'User creates list' do
   end
 
   scenario 'and name is mandatory' do
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
+    user = create(:user)    
 
     login_as user, scope: :user
     visit root_path
@@ -26,9 +26,9 @@ feature 'User creates list' do
   end
 
   scenario 'and sees all lists' do
-    user = User.create!(email: 'vinimachado00@gmail.com', password: '123456')
-    List.create(name: 'Almoço em família', user: user)
-    List.create(name: 'Café da tarde', user: user)
+    user = create(:user)    
+    list1 = create(:list, name: 'Almoço em família', user: user)
+    list2 = create(:list, name: 'Café da tarde', user: user)
 
     login_as user, scope: :user
     visit root_path

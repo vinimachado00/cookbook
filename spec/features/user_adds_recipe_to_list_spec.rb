@@ -4,7 +4,7 @@ feature 'User adds recipe to list' do
   scenario 'successfully' do
     user = create(:user)
     list = create(:list, user: user)
-    random_list = create(:random_list)
+    random_list = create(:random_list, user: user)
     recipe_type = create(:recipe_type)
     cuisine = create(:cuisine)
     favorite_recipe = create(:recipe)
