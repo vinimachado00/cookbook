@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'User adds recipe to list' do
   scenario 'successfully' do
-    list = create(:list)
-    random_list = create(:random_list)
     user = create(:user)
+    list = create(:list, user: user)
+    random_list = create(:random_list)
     recipe_type = create(:recipe_type)
     cuisine = create(:cuisine)
     favorite_recipe = create(:recipe)
@@ -19,9 +19,8 @@ feature 'User adds recipe to list' do
   end
 
   scenario 'and sees recipes saved through lists' do
-    list = create(:list)
-    random_list = create(:random_list)
     user = create(:user)
+    list = create(:list, user: user)
     recipe_type = create(:recipe_type)
     cuisine = create(:cuisine)
     favorite_recipe = create(:recipe)
@@ -29,9 +28,9 @@ feature 'User adds recipe to list' do
     login_as user, scope: :user
     visit root_path
     click_on 'Bolo de cenoura'
-    select 'Café da tarde', from: 'Lista'
+    select list.name, from: 'Lista'
     click_on 'Adicionar à esta lista'
-    visit my_recipes_path
+    visit my_lists_path
     click_on list.name
     
     expect(page).to have_content(favorite_recipe.title)
