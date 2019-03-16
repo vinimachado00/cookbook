@@ -32,7 +32,7 @@ feature 'User creates list' do
 
     login_as user, scope: :user
     visit root_path
-    click_on 'Ver todas as listas'
+    click_on 'Ver minhas listas'
 
     expect(page).to have_css('p', text: 'Almoço em família')
     expect(page).to have_css('p', text: 'Café da tarde')

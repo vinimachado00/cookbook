@@ -1,3 +1,5 @@
+<h2>Adicione uma cozinha</h2>
+
 <%= flash[:alert] %>
 
 <%= form_for @cuisine do |c| %>
@@ -5,3 +7,5 @@
   <%= c.text_field :name %>
   <%= c.submit 'Enviar' %>
 <% end %>
+
+<p><%= link_to 'Voltar', root_path %></p>

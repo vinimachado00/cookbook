@@ -9,6 +9,7 @@ class RecipesController < ApplicationController
 
   def show
     find_recipe_by_id
+    @lists = List.all
   end
 
   def new

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'recipes#index'
   get 'my_recipes', to: 'recipes#my_recipes'
   get 'my_lists', to: 'lists#my_lists'
+  get 'list_recipes', to: 'lists#list_recipes'
 
   resources :recipes do
     collection do
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
     member do
       get 'favorite'
       delete 'favorite', to: 'recipes#unfavorite'
+      post 'add_list'
     end
   end
   resources :lists, only: [:new, :create, :show]

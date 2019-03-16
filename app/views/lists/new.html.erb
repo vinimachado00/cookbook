@@ -1,5 +1,7 @@
 <%= flash[:alert] %>
 
+<h2>Adicione uma lista</h2>
+
 <%= form_for @list do |list| %>
   <%= list.label :name, 'Nome' %>
   <%= list.text_field :name %>
