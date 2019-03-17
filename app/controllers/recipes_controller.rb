@@ -94,6 +94,10 @@ class RecipesController < ApplicationController
     end
   end
 
+  def my_favorite_recipes
+    @recipes = current_user.recipes
+  end
+
   private
 
   def params_recipe

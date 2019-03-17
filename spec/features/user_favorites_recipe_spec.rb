@@ -42,4 +42,32 @@ feature 'User favorites recipe' do
     expect(page).not_to have_content('Desfavoritar')
     expect(page).to have_content('Favoritar')
   end
+
+  scenario 'and view his favorite recipe' do
+    user = create(:user)
+    recipe1 = create(:recipe, user: user, favorite: true )
+    recipe2 = create(:recipe, title: 'Feijoada', user: user, favorite: false)
+    
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Ver minhas receitas favoritas'
+    
+    expect(page).to have_link(recipe1.title)
+    expect(page).not_to have_content(recipe2.title)
+  end
+
+  scenario 'and view all his favorite recipes' do
+    user = create(:user)
+    recipe1 = create(:recipe, user: user, favorite: true )
+    recipe2 = create(:recipe, title: 'Feijoada', user: user, favorite: true)
+    recipe3 = create(:recipe, title: 'Churrasco', user: user, favorite: false)
+    
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Ver minhas receitas favoritas'
+    
+    expect(page).to have_link(recipe1.title)
+    expect(page).to have_link(recipe2.title)
+    expect(page).not_to have_content(recipe3.title)
+  end
 end

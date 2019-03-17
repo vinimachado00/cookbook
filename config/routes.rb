@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'recipes#index'
   get 'my_recipes', to: 'recipes#my_recipes'
+  get 'my_favorite_recipes', to: 'recipes#my_favorite_recipes'
   get 'my_lists', to: 'lists#my_lists'
   get 'list_recipes', to: 'lists#list_recipes'
 
