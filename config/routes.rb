@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       post 'add_list'
     end
   end
-  resources :lists, only: [:new, :create, :show]
-  resources :recipe_types, only: [:new, :create, :show]
-  resources :cuisines, only: [:new, :create, :show]
+  
+  resources :recipe_types, :cuisines, :lists, only: [:new, :create, :show]
+  resources :users, only: [:show]
 end

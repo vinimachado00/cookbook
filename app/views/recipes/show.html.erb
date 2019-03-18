@@ -22,7 +22,7 @@
 <p><%= @recipe.ingredients %></p>
 <h3>Como Preparar</h3>
 <p><%= @recipe.cook_method %></p>
-<p><%= "Receita enviada por #{ @recipe.user.email }" %></p>
+<p>Receita enviada por <%= link_to @recipe.user.email, @user %></p>
 
 
 <% if @recipe.favorite == false %>
@@ -35,6 +35,7 @@
   <%= link_to 'Apagar receita', @recipe, method: :delete, 
   data: { confirm: "Tem certeza que deseja apagar a receita: #{@recipe.title}?" } %>
 </p>
+
 <% if user_signed_in? %>
   <p><%= link_to 'Editar', edit_recipe_path %></p>
 <% end %>
