@@ -22,7 +22,7 @@
 <p><%= @recipe.ingredients %></p>
 <h3>Como Preparar</h3>
 <p><%= @recipe.cook_method %></p>
-<p>Receita enviada por <%= link_to @recipe.user.email, @user %></p>
+<p>Receita enviada por <%= link_to @recipe.user.email, @recipe.user %></p>
 
 
 <% if @recipe.favorite == false %>

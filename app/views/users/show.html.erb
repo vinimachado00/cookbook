@@ -1,6 +1,9 @@
-<h2><%= @user.name %></h2>
-<h2><%= @user.city %></h2>
+<h2><%= @user.name %>, <%= @user.city %></h2>
 
 <% @recipes.each do |recipe| %>
-  <p><%= recipe.title %></p>
+  <ul>
+    <li><%= recipe.title %></li>
+  </ul>
 <% end %>
+
+<p><%= link_to 'Voltar', @recipe %>

@@ -10,7 +10,6 @@ class RecipesController < ApplicationController
   def show
     find_recipe_by_id
     @lists = List.all
-    @user = User.find_by(params[:name])
   end
 
   def new

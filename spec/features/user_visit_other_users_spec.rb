@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'User visit other users' do
   scenario 'successfully' do
-    user1 = create(:user)
-    user2 = create(:user, email: 'vmachado00@gmail.com')
+    user1 = create(:random_user)
+    user2 = create(:user)
     recipe1 = create(:recipe, user: user2)
     recipe2 = create(:random_recipe, user: user2)
 
@@ -14,7 +14,7 @@ feature 'User visit other users' do
 
     expect(page).to have_css('h2', text: user2.name)
     expect(page).to have_css('h2', text: user2.city)
-    expect(page).to have_content(recipe1.title)
-    expect(page).to have_content(recipe2.title)
+    expect(page).to have_css('li', text: recipe1.title)
+    expect(page).to have_css('li', text: recipe2.title)
   end
 end
