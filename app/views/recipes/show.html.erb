@@ -25,10 +25,10 @@
 <p>Receita enviada por <%= link_to @recipe.user.email, @recipe.user %></p>
 
 
-<% if @recipe.favorite == false %>
-  <%= link_to 'Favoritar', favorite_recipe_path %>
-<% else %>
+<% if @recipe.favorite %>
   <%= link_to 'Desfavoritar', favorite_recipe_path, method: :delete %>
+<% else %>
+  <%= link_to 'Favoritar', favorite_recipe_path %>
 <% end %>
 
 <p>
