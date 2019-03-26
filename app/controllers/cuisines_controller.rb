@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CuisinesController < ApplicationController
   def new
     @cuisine = Cuisine.new

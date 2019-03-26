@@ -18,7 +18,7 @@ feature 'User visit other users' do
     expect(page).to have_css('li', text: recipe2.title)
   end
 
-  scenario 'and access recipe' do
+  xscenario 'and access recipe' do
     user1 = create(:random_user)
     user2 = create(:user)
     recipe1 = create(:recipe, user: user2)

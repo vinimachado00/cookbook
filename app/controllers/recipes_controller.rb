@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class RecipesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update,
-                                            :destroy, :favorite, :unfavorite]
-  
+  before_action :authenticate_user!, only: %i[new create edit update
+                                              destroy favorite unfavorite]
+
   def index
     @recipes = Recipe.all
     @last_recipes = Recipe.last(6)
@@ -27,9 +29,9 @@ class RecipesController < ApplicationController
     else
       flash[:alert] = 'Não foi possível salvar a receita'
       @recipe_type = RecipeType.all
-      @cuisine = Cuisine.all      
+      @cuisine = Cuisine.all
       render :new
-    end      
+    end
   end
 
   def edit
@@ -40,7 +42,7 @@ class RecipesController < ApplicationController
   end
 
   def update
-    find_recipe_by_id    
+    find_recipe_by_id
     if @recipe.update(params_recipe)
       redirect_to @recipe
     else
